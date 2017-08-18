@@ -1,0 +1,121 @@
+\documentclass{jsarticle}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{cases}
+\begin{document}
+
+Chapter1の気温の問題で厳密解を求めてみよう。
+\begin{equation}
+	E(\omega_0,\omega_1,\omega_2,\omega_3,\omega_4)
+	=\sum_{n=1}^{12} \left( \left( \sum_{m=0}^4 \omega_m n^m \right) - t_n \right) ^2 
+\end{equation}
+
+この関数の極値を求めたい。
+
+極値をとる条件は、
+
+\begin{equation*}
+	\frac{\partial E}{\partial \omega_m}
+	(\omega_0,\omega_1,\omega_2,\omega_3,\omega4)=0\:(m=0, \dots,4)
+\end{equation*}
+
+であり、この連立方程式を解けばよい。
+
+$\displaystyle V_n=y_n-t_n=(\sum_{m=0}^{4} \omega_m n^m) - t_n$ として、
+
+\begin{align*}
+	& \frac{\partial E}{\partial \omega_m} 
+	= \frac{\partial}{\partial \omega_m} (\sum_{n=1}^{12} V_n^2) \\
+	&= \sum_{n=1}^{12} 
+	\left( \frac{\partial} {\partial V_n} V_n^2 \right) 
+	\frac{\partial V_n}{\partial y_n} \frac{\partial y_n}{\partial \omega_m} \\
+	&= \sum_{n=1}^{12} (2V_n) n^m \\
+	&= 2\sum_{n=1}^{12} \omega_0 n^m 
+	+ \omega_1 n^{m+1} 
+	+ \omega_2 n^{m+2} 
+	+ \omega_3 n^{m+3} 
+	+ \omega_4 n^{m+4} 
+	- t_n n^m \\
+	&= 2 \left( \omega_0 \sum_{n=1}^{12} n^{m}
+	+ \omega_1 \sum_{n=1}^{12} n^{m + 1}
+	+ \omega_2 \sum_{n=1}^{12} n^{m + 2}
+	+ \omega_3 \sum_{n=1}^{12} n^{m + 3}
+	+ \omega_4 \sum_{n=1}^{12} n^{m + 4}
+	- \sum_{n=1}^{12} t_n n^m \right)
+\end{align*}
+
+よって、
+
+\begin{align*}
+	& \frac{\partial E}{\partial \omega_m} = 0 \\
+	& \Leftrightarrow 
+	\omega_0 \sum_{n=1}^{12} n^{m}
+	+ \omega_1 \sum_{n=1}^{12} n^{m + 1}
+	+ \omega_2 \sum_{n=1}^{12} n^{m + 2}
+	+ \omega_3 \sum_{n=1}^{12} n^{m + 3}
+	+ \omega_4 \sum_{n=1}^{12} n^{m + 4}
+	- \sum_{n=1}^{12} t_n n^m  = 0 \\
+	& \Leftrightarrow
+	\omega_0 \sum_{n=1}^{12} n^{m}
+	+ \omega_1 \sum_{n=1}^{12} n^{m + 1}
+	+ \omega_2 \sum_{n=1}^{12} n^{m + 2}
+	+ \omega_3 \sum_{n=1}^{12} n^{m + 3}
+	+ \omega_4 \sum_{n=1}^{12} n^{m + 4}
+	= \sum_{n=1}^{12} t_n n^m
+\end{align*}
+
+となる。
+$m=0, \dots , 4$ で具体値を代入して、
+
+\begin{align*}
+	\begin{bmatrix}
+    12 & 78 & 650 & 6084 & 60710 \\
+	78 & 650 & 6084 & 60710 & 630708 \\
+	650 & 6084 & 60710 & 630708 & 6735950 \\
+	6084 & 60710 & 630708 & 6735950 & 73399404 \\
+	60710 & 630708 & 6735950 & 73399404 & 812071910
+	\end{bmatrix}
+	\begin{bmatrix}
+		\omega_0 \\
+		\omega_1 \\
+		\omega_2 \\
+		\omega_3 \\
+		\omega_4 
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		182.9 \\
+		1286.6 \\
+		10362.6 \\
+		90481.4 \\
+		835744.2
+	\end{bmatrix}
+\end{align*}
+
+これを解いて、
+
+\begin{align*}
+	\begin{bmatrix}
+		\omega_0 \\
+		\omega_1 \\
+		\omega_2 \\
+		\omega_3 \\
+		\omega_4 
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		11.120202 \\
+		-9.293603 \\
+		4.063967 \\
+		-0.454027 \\
+		0.014744
+	\end{bmatrix}
+\end{align*}
+
+を得る。
+
+(1)の式に$\omega$の値を代入して$E=12.144164724$を得る。
+
+P61に「実際の誤差関数$ \bm{loss} $の最小値は約12」と書いてあるが、それと一致する。
+\end{document}
+
