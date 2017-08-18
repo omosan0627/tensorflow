@@ -54,16 +54,16 @@ for _ in range(100000):
         loss_val = sess.run(loss, feed_dict={x:train_x, t:train_t})
         print ('Step: %d, Loss: %f' % (i, loss_val))
 
-Step: 10000, Loss: 31.014391
-Step: 20000, Loss: 29.295158
-Step: 30000, Loss: 28.033054
-Step: 40000, Loss: 26.855808
-Step: 50000, Loss: 25.771938
-Step: 60000, Loss: 26.711918
-Step: 70000, Loss: 24.436256
-Step: 80000, Loss: 22.975143
-Step: 90000, Loss: 22.194229
-Step: 100000, Loss: 21.434664
+# Step: 10000, Loss: 31.014391
+# Step: 20000, Loss: 29.295158
+# Step: 30000, Loss: 28.033054
+# Step: 40000, Loss: 26.855808
+# Step: 50000, Loss: 25.771938
+# Step: 60000, Loss: 26.711918
+# Step: 70000, Loss: 24.436256
+# Step: 80000, Loss: 22.975143
+# Step: 90000, Loss: 22.194229
+# Step: 100000, Loss: 21.434664
 
 # [LSE-11] さらに100000回繰り返します。
 # In [11]:
@@ -74,27 +74,27 @@ for _ in range(100000):
         loss_val = sess.run(loss, feed_dict={x:train_x, t:train_t})
         print ('Step: %d, Loss: %f' % (i, loss_val))
 
-Step: 110000, Loss: 20.749628
-Step: 120000, Loss: 20.167929
-Step: 130000, Loss: 19.527676
-Step: 140000, Loss: 18.983555
-Step: 150000, Loss: 18.480526
-Step: 160000, Loss: 18.012512
-Step: 170000, Loss: 17.615368
-Step: 180000, Loss: 17.179623
-Step: 190000, Loss: 16.879869
-Step: 200000, Loss: 20.717033
+# Step: 110000, Loss: 20.749628
+# Step: 120000, Loss: 20.167929
+# Step: 130000, Loss: 19.527676
+# Step: 140000, Loss: 18.983555
+# Step: 150000, Loss: 18.480526
+# Step: 160000, Loss: 18.012512
+# Step: 170000, Loss: 17.615368
+# Step: 180000, Loss: 17.179623
+# Step: 190000, Loss: 16.879869
+# Step: 200000, Loss: 20.717033
 
 # [LSE-12] トレーニング後のパラメーターの値を確認します。
 # In [12]:
 w_val = sess.run(w)
 print w_val
 
-[[ 6.10566282]
- [-4.04159737]
- [ 2.51030278]
- [-0.2817387 ]
- [ 0.00828196]]
+# [[ 6.10566282]
+#  [-4.04159737]
+#  [ 2.51030278]
+#  [-0.2817387 ]
+#  [ 0.00828196]]
 
 #[LSE-13] トレーニング後のパラメーターを用いて、予測気温を計算する関数を定義します。
 #In [13]:
