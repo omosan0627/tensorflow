@@ -116,5 +116,3 @@ subplot.plot(linex, liney)
 
 #Out[14]:
 #[<matplotlib.lines.Line2D at 0x65ec5d0>]
-
- 
