@@ -1,258 +1,103 @@
-# [MLE-01] モジュールをインポートします。
+# [MSE-01] モジュールをインポートして、乱数のシードを設定します。
 # In [1]:
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
-from numpy.random import multivariate_normal, permutation
-import pandas as pd
-from pandas import DataFrame, Series
+from tensorflow.examples.tutorials.mnist import input_data
 
-# [MLE-02] トレーニングセットのデータを用意します。
+np.random.seed(20160604)
+
+# [MSE-02] MNISTのデータセットを用意します。
 # In [2]:
-np.random.seed(20160512)
+mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
-n0, mu0, variance0 = 20, [10, 11], 20
-data0 = multivariate_normal(mu0, np.eye(2)*variance0 ,n0)
-df0 = DataFrame(data0, columns=['x1','x2'])
-df0['t'] = 0
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
 
-n1, mu1, variance1 = 15, [18, 20], 22
-data1 = multivariate_normal(mu1, np.eye(2)*variance1 ,n1)
-df1 = DataFrame(data1, columns=['x1','x2'])
-df1['t'] = 1
-
-df = pd.concat([df0, df1], ignore_index=True)
-train_set = df.reindex(permutation(df.index)).reset_index(drop=True)
-
-# [MLE-03] トレーニングセットのデータの内容を確認します。
+# [MSE-03] ソフトマックス関数による確率 p の計算式を用意します。
 # In [3]:
-# train_set
-# Out[3]:
-#
-# x1
-# x2
-# t
-# 0
-# 20.729880
-# 18.209359
-# 1
-# 1
-# 16.503919
-# 14.685085
-# 0
-# 2
-# 5.508661
-# 17.426775
-# 0
-# 3
-# 9.167047
-# 9.178837
-# 0
-# 4
-# 8.640423
-# 9.561952
-# 0
-# 5
-# 10.500988
-# 17.002584
-# 0
-# 6
-# 16.484766
-# 22.232997
-# 1
-# 7
-# 6.979059
-# 8.180596
-# 0
-# 8
-# 11.701339
-# 0.996734
-# 0
-# 9
-# 21.367990
-# 18.712309
-# 1
-# 10
-# 2.742368
-# 9.577106
-# 0
-# 11
-# 19.889426
-# 15.898579
-# 1
-# 12
-# 11.327374
-# 12.893008
-# 0
-# 13
-# 14.197280
-# 10.909934
-# 0
-# 14
-# 22.302614
-# 25.038878
-# 1
-# 15
-# 7.173128
-# 5.030339
-# 0
-# 16
-# 11.165606
-# 23.951555
-# 1
-# 17
-# 5.327702
-# 6.495280
-# 0
-# 18
-# 20.633144
-# 17.689928
-# 1
-# 19
-# 21.519939
-# 28.223327
-# 1
-# 20
-# 16.130211
-# 24.143617
-# 1
-# 21
-# 10.097339
-# 17.521928
-# 0
-# 22
-# 17.442766
-# 20.707834
-# 1
-# 23
-# 12.368016
-# 16.916404
-# 1
-# 24
-# 18.030082
-# 11.490216
-# 1
-# 25
-# 4.436147
-# 6.008804
-# 0
-# 26
-# 13.586938
-# 5.377042
-# 0
-# 27
-# 11.653677
-# 9.632250
-# 0
-# 28
-# 7.032909
-# 12.273721
-# 0
-# 29
-# 20.662261
-# 22.811282
-# 1
-# 30
-# 16.450200
-# 6.265440
-# 0
-# 31
-# 8.942052
-# 7.980884
-# 0
-# 32
-# 25.464995
-# 20.352601
-# 1
-# 33
-# 10.633718
-# 26.321456
-# 1
-# 34
-# 3.547441
-# 8.265382
-# 0
-
-# [MLE-04] (x1, x2) と t を別々に集めたものをNumPyのarrayオブジェクトとして取り出しておきます。
-# In [4]:
-train_x = train_set[['x1','x2']].as_matrix()
-train_t = train_set['t'].as_matrix().reshape([len(train_set), 1])
-
-# [MLE-05] トレーニングセットのデータについて、t=1 である確率を求める計算式 p を用意します。
-# In [5]:
-x = tf.placeholder(tf.float32, [None, 2])
-w = tf.Variable(tf.zeros([2, 1]))
-w0 = tf.Variable(tf.zeros([1]))
+x = tf.placeholder(tf.float32, [None, 784])
+w = tf.Variable(tf.zeros([784, 10]))
+w0 = tf.Variable(tf.zeros([10]))
 f = tf.matmul(x, w) + w0
-p = tf.sigmoid(f)
+p = tf.nn.softmax(f)
 
-# [MLE-06] 誤差関数 loss とトレーニングアルゴリズム train_step を定義します。
-# In [6]:
-t = tf.placeholder(tf.float32, [None, 1])
-loss = -tf.reduce_sum(t*tf.log(p) + (1-t)*tf.log(1-p))
+# [MSE-04] 誤差関数 loss とトレーニングアルゴリズム train_step を用意します。
+# In [4]:
+t = tf.placeholder(tf.float32, [None, 10])
+loss = -tf.reduce_sum(t * tf.log(p))
 train_step = tf.train.AdamOptimizer().minimize(loss)
 
-# [MLE-07] 正解率 accuracy を定義します。
-# In [7]:
-correct_prediction = tf.equal(tf.sign(p-0.5), tf.sign(t-0.5))
+# [MSE-05] 正解率 accuracy を定義します。
+# In [5]:
+correct_prediction = tf.equal(tf.argmax(p, 1), tf.argmax(t, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-# [MLE-08] セッションを用意して、Variableを初期化します。
-# In [8]:
-sess = tf.Session()
+# [MSE-06] セッションを用意して、Variableを初期化します。
+# In [6]:
+sess = tf.InteractiveSession()
 sess.run(tf.initialize_all_variables())
 
-# [MLE-09] 勾配降下法によるパラメーターの最適化を20000回繰り返します。
-# In [9]:
+# [MSE-07] パラメーターの最適化を2000回繰り返します。
+# 1回の処理において、トレーニングセットから取り出した100個のデータを用いて、勾配降下法を適用します。
+# 最終的に、テストセットに対して約92%の正解率が得られます。
+# In [7]:
 i = 0
-for _ in range(20000):
+for _ in range(2000):
     i += 1
-    sess.run(train_step, feed_dict={x:train_x, t:train_t})
-    if i % 2000 == 0:
-        loss_val, acc_val = sess.run(
-            [loss, accuracy], feed_dict={x:train_x, t:train_t})
+    batch_xs, batch_ts = mnist.train.next_batch(100)
+    sess.run(train_step, feed_dict={x: batch_xs, t: batch_ts})
+    if i % 100 == 0:
+        loss_val, acc_val = sess.run([loss, accuracy],
+            feed_dict={x:mnist.test.images, t: mnist.test.labels})
         print ('Step: %d, Loss: %f, Accuracy: %f'
                % (i, loss_val, acc_val))
 
-# Step: 2000, Loss: 15.165894, Accuracy: 0.885714
-# Step: 4000, Loss: 10.772635, Accuracy: 0.914286
-# Step: 6000, Loss: 8.197757, Accuracy: 0.971429
-# Step: 8000, Loss: 6.576121, Accuracy: 0.971429
-# Step: 10000, Loss: 5.511973, Accuracy: 0.942857
-# Step: 12000, Loss: 4.798011, Accuracy: 0.942857
-# Step: 14000, Loss: 4.314180, Accuracy: 0.942857
-# Step: 16000, Loss: 3.986264, Accuracy: 0.942857
-# Step: 18000, Loss: 3.766511, Accuracy: 0.942857
-# Step: 20000, Loss: 3.623064, Accuracy: 0.942857
+# Step: 100, Loss: 7747.077148, Accuracy: 0.848400
+# Step: 200, Loss: 5439.362305, Accuracy: 0.879900
+# Step: 300, Loss: 4556.467285, Accuracy: 0.890900
+# Step: 400, Loss: 4132.035156, Accuracy: 0.896100
+# Step: 500, Loss: 3836.139160, Accuracy: 0.902600
+# Step: 600, Loss: 3646.572510, Accuracy: 0.903900
+# Step: 700, Loss: 3490.270752, Accuracy: 0.909100
+# Step: 800, Loss: 3385.605469, Accuracy: 0.909400
+# Step: 900, Loss: 3293.132324, Accuracy: 0.912800
+# Step: 1000, Loss: 3220.884277, Accuracy: 0.913700
+# Step: 1100, Loss: 3174.230957, Accuracy: 0.913700
+# Step: 1200, Loss: 3081.114990, Accuracy: 0.916400
+# Step: 1300, Loss: 3046.678711, Accuracy: 0.915400
+# Step: 1400, Loss: 3002.018555, Accuracy: 0.916300
+# Step: 1500, Loss: 2973.873779, Accuracy: 0.918700
+# Step: 1600, Loss: 2960.562500, Accuracy: 0.918200
+# Step: 1700, Loss: 2923.289062, Accuracy: 0.917500
+# Step: 1800, Loss: 2902.116699, Accuracy: 0.919000
+# Step: 1900, Loss: 2870.737061, Accuracy: 0.920000
+# Step: 2000, Loss: 2857.827881, Accuracy: 0.921100
 
-# [MLE-10] この時点のパラメーターの値を取り出します。
-# In [10]:
-w0_val, w_val = sess.run([w0, w])
-w0_val, w1_val, w2_val = w0_val[0], w_val[0][0], w_val[1][0]
-print w0_val, w1_val, w2_val
+# [MSE-08] この時点のパラメーターを用いて、テストセットに対する予測を表示します。
+# ここでは、「０」〜「９」の数字に対して、正解と不正解の例を３個ずつ表示します。
+# In [8]:
+images, labels = mnist.test.images, mnist.test.labels
+p_val = sess.run(p, feed_dict={x:images, t: labels}) 
 
-# -15.6304 0.5603 0.492596
+fig = plt.figure(figsize=(8,15))
+for i in range(10):
+    c = 1
+    for (image, label, pred) in zip(images, labels, p_val):
+        prediction, actual = np.argmax(pred), np.argmax(label)
+        if prediction != i:
+            continue
+        if (c < 4 and i == actual) or (c >= 4 and i != actual):
+            subplot = fig.add_subplot(10,6,i*6+c)
+            subplot.set_xticks([])
+            subplot.set_yticks([])
+            subplot.set_title('%d / %d' % (prediction, actual))
+            subplot.imshow(image.reshape((28,28)), vmin=0, vmax=1,
+                           cmap=plt.cm.gray_r, interpolation="nearest")
+            c += 1
+            if c > 6:
+                break
 
-# [MLE-11] 取り出したパラメーターの値を用いて、結果をグラフに表示します。
-# In [11]:
-train_set0 = train_set[train_set['t']==0]
-train_set1 = train_set[train_set['t']==1]
-
-fig = plt.figure(figsize=(6,6))
-subplot = fig.add_subplot(1,1,1)
-subplot.set_ylim([0,30])
-subplot.set_xlim([0,30])
-subplot.scatter(train_set1.x1, train_set1.x2, marker='x')
-subplot.scatter(train_set0.x1, train_set0.x2, marker='o')
-
-linex = np.linspace(0,30,10)
-liney = - (w1_val*linex/w2_val + w0_val/w2_val)
-subplot.plot(linex, liney)
-
-field = [[(1 / (1 + np.exp(-(w0_val + w1_val*x1 + w2_val*x2))))
-          for x1 in np.linspace(0,30,100)]
-         for x2 in np.linspace(0,30,100)]
-subplot.imshow(field, origin='lower', extent=(0,30,0,30),
-               cmap=plt.cm.gray_r, alpha=0.5)
-# Out[11]:
-# <matplotlib.image.AxesImage at 0x5912710>
+ 
