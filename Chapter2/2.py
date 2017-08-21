@@ -8,14 +8,14 @@ from tensorflow.examples.tutorials.mnist import input_data
 # In [2]:
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
-Successfully downloaded train-images-idx3-ubyte.gz 9912422 bytes.
-Extracting /tmp/data/train-images-idx3-ubyte.gz
-Successfully downloaded train-labels-idx1-ubyte.gz 28881 bytes.
-Extracting /tmp/data/train-labels-idx1-ubyte.gz
-Successfully downloaded t10k-images-idx3-ubyte.gz 1648877 bytes.
-Extracting /tmp/data/t10k-images-idx3-ubyte.gz
-Successfully downloaded t10k-labels-idx1-ubyte.gz 4542 bytes.
-Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+# Successfully downloaded train-images-idx3-ubyte.gz 9912422 bytes.
+# Extracting /tmp/data/train-images-idx3-ubyte.gz
+# Successfully downloaded train-labels-idx1-ubyte.gz 28881 bytes.
+# Extracting /tmp/data/train-labels-idx1-ubyte.gz
+# Successfully downloaded t10k-images-idx3-ubyte.gz 1648877 bytes.
+# Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+# Successfully downloaded t10k-labels-idx1-ubyte.gz 4542 bytes.
+# Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
 
 # [MDS-03] トレーニングセットから、10個分のデータを取り出して、画像データとラベルを別々の変数に格納します。
 # In [3]:
