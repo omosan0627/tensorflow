@@ -12,10 +12,10 @@ tf.set_random_seed(20160612)
 # In [2]:
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
-Extracting /tmp/data/train-images-idx3-ubyte.gz
-Extracting /tmp/data/train-labels-idx1-ubyte.gz
-Extracting /tmp/data/t10k-images-idx3-ubyte.gz
-Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+# Extracting /tmp/data/train-images-idx3-ubyte.gz
+# Extracting /tmp/data/train-labels-idx1-ubyte.gz
+# Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+# Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
 
 # [MSL-03] 単層ニューラルネットワークを用いた確率 p の計算式を用意します。
 # In [3]:

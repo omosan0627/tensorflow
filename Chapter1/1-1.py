@@ -88,7 +88,7 @@ for _ in range(100000):
 # [LSE-12] トレーニング後のパラメーターの値を確認します。
 # In [12]:
 w_val = sess.run(w)
-print w_val
+print (w_val)
 
 # [[ 6.10566282]
 #  [-4.04159737]

@@ -23,7 +23,7 @@ images, labels = mnist.train.next_batch(10)
 
 # [MDS-04] 1つめの画像データを確認します。各ピクセルの濃度が並んだリスト（arrayオブジェクト）になっています。
 # In [4]:
-print images[0]
+print (images[0])
 
 # [ 0.          0.          0.          0.          0.          0.          0.
 #   0.          0.          0.          0.          0.          0.          0.

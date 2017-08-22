@@ -74,7 +74,7 @@ class SingleLayerNetwork:
 
 # [MST-04] TensorBoard用のデータ出力ディレクトリーを削除して初期化しておきます。
 # In [4]:
-!rm -rf /tmp/mnist_sl_logs
+# !rm -rf /tmp/mnist_sl_logs
 
 # [MST-05] パラメーターの最適化を2000回繰り返します。テストセットに対して、約97%の正解率が得られます。
 # In [5]:

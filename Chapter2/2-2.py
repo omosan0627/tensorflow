@@ -229,7 +229,7 @@ for _ in range(20000):
 # In [10]:
 w0_val, w_val = sess.run([w0, w])
 w0_val, w1_val, w2_val = w0_val[0], w_val[0][0], w_val[1][0]
-print w0_val, w1_val, w2_val
+print (w0_val, w1_val, w2_val)
 
 # -15.6304 0.5603 0.492596
 
