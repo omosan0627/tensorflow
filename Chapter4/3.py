@@ -56,8 +56,8 @@ sess = tf.InteractiveSession()
 sess.run(tf.initialize_all_variables())
 saver = tf.train.Saver()
 saver.restore(sess, 'mdc_session-4000')
-[MDR-07] 畳込みフィルターの値と、最初の9個分の画像データに対して、畳み込みフィルターとプーリング層を適用した結果を取得します。
-In [7]:
+# [MDR-07] 畳込みフィルターの値と、最初の9個分の画像データに対して、畳み込みフィルターとプーリング層を適用した結果を取得します。
+# In [7]:
 
 filter_vals, conv_vals, pool_vals = sess.run(
     [W_conv, h_conv, h_pool], feed_dict={x:mnist.test.images[:9]})
