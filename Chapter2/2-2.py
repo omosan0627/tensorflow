@@ -256,3 +256,4 @@ subplot.imshow(field, origin='lower', extent=(0,30,0,30),
                cmap=plt.cm.gray_r, alpha=0.5)
 # Out[11]:
 # <matplotlib.image.AxesImage at 0x5912710>
+
