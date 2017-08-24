@@ -101,7 +101,7 @@ for _ in range(2000):
 train_set1 = train_set[train_set['t']==1]
 train_set2 = train_set[train_set['t']==0]
 
-fig = plt.figure(figsize=(6,6))
+fig = plt.figure(figsize=(12,12))
 subplot = fig.add_subplot(1,1,1)
 subplot.set_ylim([-15,15])
 subplot.set_xlim([-15,15])
@@ -116,5 +116,7 @@ p_vals = sess.run(p, feed_dict={x:locations})
 p_vals = p_vals.reshape((100,100))
 subplot.imshow(p_vals, origin='lower', extent=(-15,15,-15,15),
                cmap=plt.cm.gray_r, alpha=0.5)
+
+plt.show()
 # Out[8]:
 # <matplotlib.image.AxesImage at 0x5aefe50>

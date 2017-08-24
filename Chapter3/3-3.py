@@ -103,3 +103,5 @@ for i in range(10):
             c += 1
             if c > 6:
                 break
+
+plt.show()

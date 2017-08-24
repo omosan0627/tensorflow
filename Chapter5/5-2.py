@@ -62,8 +62,8 @@ p = tf.nn.softmax(tf.matmul(hidden2_drop, w0) + b0)
 
 sess = tf.InteractiveSession()
 sess.run(tf.initialize_all_variables())
-saver = tf.train.Saver()
-saver.restore(sess, 'cnn_session-20000')
+# saver = tf.train.Saver()
+# saver.restore(sess, 'cnn_session-20000')
 # [HWR-06] 手書き文字を入力するためのJavaScriptのコードを用意します。
 # In [6]:
 
@@ -131,7 +131,7 @@ HTML(input_form + javascript)
 # In [8]:
 
 p_val = sess.run(p, feed_dict={x:[image], keep_prob:1.0})
-​
+
 fig = plt.figure(figsize=(4,2))
 pred = p_val[0]
 subplot = fig.add_subplot(1,1,1)

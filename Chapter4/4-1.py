@@ -12,10 +12,10 @@ tf.set_random_seed(20160703)
 # In [2]:
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
-Extracting /tmp/data/train-images-idx3-ubyte.gz
-Extracting /tmp/data/train-labels-idx1-ubyte.gz
-Extracting /tmp/data/t10k-images-idx3-ubyte.gz
-Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+# Extracting /tmp/data/train-images-idx3-ubyte.gz
+# Extracting /tmp/data/train-labels-idx1-ubyte.gz
+# Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+# Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
 
 # [MDT-03] 畳込みフィルターが1層のCNNを表現するクラスを定義します。
 # In [3]:
@@ -70,9 +70,9 @@ class SingleCNN:
             accuracy = tf.reduce_mean(tf.cast(correct_prediction,
                                               tf.float32), name='accuracy')
             
-        tf.scalar_summary("loss", loss)
-        tf.scalar_summary("accuracy", accuracy)
-        tf.histogram_summary("convolution_filters", W_conv)
+        tf.summary.scalar("loss", loss)
+        tf.summary.scalar("accuracy", accuracy)
+        tf.summary.histogram("convolution_filters", W_conv)
         
         self.x, self.t, self.p = x, t, p
         self.train_step = train_step
@@ -82,8 +82,8 @@ class SingleCNN:
     def prepare_session(self):
         sess = tf.InteractiveSession()
         sess.run(tf.initialize_all_variables())
-        summary = tf.merge_all_summaries()
-        writer = tf.train.SummaryWriter("/tmp/mnist_df_logs", sess.graph)
+        summary = tf.summary.merge_all()
+        writer = tf.summary.FileWriter("/tmp/mnist_sl_logs", sess.graph)
         
         self.sess = sess
         self.summary = summary
@@ -91,7 +91,7 @@ class SingleCNN:
 
 # [MDT-04] TensorBoard用のデータ出力ディレクトリーを削除して初期化しておきます。
 # In [4]:
-!rm -rf /tmp/mnist_df_logs
+# !rm -rf /tmp/mnist_df_logs
 
 # [MDT-05] パラメーターの最適化を4000回繰り返します。テストセットに対して約98%の正解率が得られます。
 # In [5]:

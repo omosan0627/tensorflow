@@ -50,12 +50,12 @@ class SingleLayerNetwork:
             accuracy = tf.reduce_mean(tf.cast(correct_prediction,
                                               tf.float32), name='accuracy')
 
-        tf.scalar_summary("loss", loss)
-        tf.scalar_summary("accuracy", accuracy)
-        tf.histogram_summary("weights_hidden", w1)
-        tf.histogram_summary("biases_hidden", b1)
-        tf.histogram_summary("weights_output", w0)
-        tf.histogram_summary("biases_output", b0)
+        tf.summary.scalar("loss", loss)
+        tf.summary.scalar("accuracy", accuracy)
+        tf.summary.histogram("weights_hidden", w1)
+        tf.summary.histogram("biases_hidden", b1)
+        tf.summary.histogram("weights_output", w0)
+        tf.summary.histogram("biases_output", b0)
                 
         self.x, self.t, self.p = x, t, p
         self.train_step = train_step
@@ -65,8 +65,8 @@ class SingleLayerNetwork:
     def prepare_session(self):
         sess = tf.InteractiveSession()
         sess.run(tf.initialize_all_variables())
-        summary = tf.merge_all_summaries()
-        writer = tf.train.SummaryWriter("/tmp/mnist_sl_logs", sess.graph)
+        summary = tf.summary.merge_all()
+        writer = tf.summary.FileWriter("/tmp/mnist_sl_logs", sess.graph)
         
         self.sess = sess
         self.summary = summary

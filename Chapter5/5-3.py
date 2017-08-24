@@ -95,8 +95,8 @@ for _ in range(20000):
     if i % 500 == 0:
         loss_vals, acc_vals = [], []
         for c in range(4):
-            start = len(mnist.test.labels) / 4 * c
-            end = len(mnist.test.labels) / 4 * (c+1)
+            start = int(len(mnist.test.labels) / 4 * c)
+            end = int(len(mnist.test.labels) / 4 * (c+1))
             loss_val, acc_val = sess.run([loss, accuracy],
                 feed_dict={x:mnist.test.images[start:end],
                            t:mnist.test.labels[start:end],
@@ -107,7 +107,7 @@ for _ in range(20000):
         acc_val = np.mean(acc_vals)
         print ('Step: %d, Loss: %f, Accuracy: %f'
                % (i, loss_val, acc_val))
-        saver.save(sess, 'cnn_session', global_step=i)
+        #saver.save(sess, 'cnn_session', global_step=i)
 # Step: 500, Loss: 1539.889160, Accuracy: 0.955600
 # Step: 1000, Loss: 972.987549, Accuracy: 0.971700
 # Step: 1500, Loss: 789.961914, Accuracy: 0.974000
@@ -151,7 +151,7 @@ for _ in range(20000):
 # [CNN-09] セッション情報を保存したファイルが生成されていることを確認します。
 # In [9]:
 
-!ls cnn_session*
+# !ls cnn_session*
 # cnn_session-18000	cnn_session-19000	cnn_session-20000
 # cnn_session-18000.meta	cnn_session-19000.meta	cnn_session-20000.meta
 # cnn_session-18500	cnn_session-19500

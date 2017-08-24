@@ -9,10 +9,10 @@ from tensorflow.examples.tutorials.mnist import input_data
 # In [2]:
 
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-Extracting /tmp/data/train-images-idx3-ubyte.gz
-Extracting /tmp/data/train-labels-idx1-ubyte.gz
-Extracting /tmp/data/t10k-images-idx3-ubyte.gz
-Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+# Extracting /tmp/data/train-images-idx3-ubyte.gz
+# Extracting /tmp/data/train-labels-idx1-ubyte.gz
+# Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+# Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
 # [MDR-03] フィルターに対応する Variable を用意して、入力データにフィルターとプーリング層を適用する計算式を定義します。
 # In [3]:
 
@@ -54,8 +54,8 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 sess = tf.InteractiveSession()
 sess.run(tf.initialize_all_variables())
-saver = tf.train.Saver()
-saver.restore(sess, 'mdc_session-4000')
+# saver = tf.train.Saver()
+# saver.restore(sess, 'mdc_session-4000')
 # [MDR-07] 畳込みフィルターの値と、最初の9個分の画像データに対して、畳み込みフィルターとプーリング層を適用した結果を取得します。
 # In [7]:
 
@@ -90,6 +90,7 @@ for i in range(9):
         subplot.imshow(conv_vals[i,:,:,f],
                        cmap=plt.cm.gray_r, interpolation='nearest')    
 
+plt.show()
 # [MDR-09] 同じく、畳込みフィルターとプーリング層を適用した結果を画像として表示します。
 # In [9]:
 
@@ -118,6 +119,7 @@ for i in range(9):
         subplot.imshow(pool_vals[i,:,:,f],
                        cmap=plt.cm.gray_r, interpolation='nearest') 
 
+plt.show()
 # [MDR-10] 正しく分類できなかったいくつかのデータについて、それぞれの文字である確率を確認します。
 # In [10]:
 
@@ -144,4 +146,5 @@ for (image, label) in zip(mnist.test.images,
     c += 1
     if c == 10:
         break
+plt.show()
 

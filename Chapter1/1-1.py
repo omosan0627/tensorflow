@@ -114,5 +114,6 @@ linex = np.linspace(1,12,100)
 liney = predict(linex)
 subplot.plot(linex, liney)
 
+plt.show()
 #Out[14]:
 #[<matplotlib.lines.Line2D at 0x65ec5d0>]

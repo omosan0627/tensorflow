@@ -102,5 +102,7 @@ p_vals = sess.run(p, feed_dict={x:locations})
 p_vals = p_vals.reshape((100,100))
 subplot.imshow(p_vals, origin='lower', extent=(0,30,0,30),
                cmap=plt.cm.gray_r, alpha=0.5)
+
+plt.show()
 # Out[8]:
 # <matplotlib.image.AxesImage at 0x5f22790>

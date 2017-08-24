@@ -100,4 +100,4 @@ for i in range(10):
             if c > 6:
                 break
 
- 
+plt.show()

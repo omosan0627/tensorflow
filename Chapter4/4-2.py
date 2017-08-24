@@ -12,10 +12,10 @@ tf.set_random_seed(20160703)
 # In [2]:
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
-Extracting /tmp/data/train-images-idx3-ubyte.gz
-Extracting /tmp/data/train-labels-idx1-ubyte.gz
-Extracting /tmp/data/t10k-images-idx3-ubyte.gz
-Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+# Extracting /tmp/data/train-images-idx3-ubyte.gz
+# Extracting /tmp/data/train-labels-idx1-ubyte.gz
+# Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+# Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
 
 # [MDC-03] フィルターに対応する Variable を用意して、入力データにフィルターとプーリング層を適用する計算式を定義します。
 # In [3]:
@@ -118,7 +118,7 @@ for _ in range(4000):
 
 # [MDC-08] セッション情報を保存したファイルが生成されていることを確認します。
 # In [8]:
-!ls mdc_session*
+# !ls mdc_session*
 
 # mdc_session-3600       mdc_session-3800       mdc_session-4000
 # mdc_session-3600.meta  mdc_session-3800.meta  mdc_session-4000.meta

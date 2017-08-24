@@ -127,6 +127,8 @@ subplot = fig.add_subplot(1,1,1)
 subplot.scatter(z1_vals[0], z2_vals[0], s=200, marker='|')
 subplot.scatter(z1_vals[1], z2_vals[1], s=200, marker='_')
 subplot.scatter(z1_vals[2], z2_vals[2], s=200, marker='+')
+
+plt.show()
 # Out[9]:
 # <matplotlib.collections.PathCollection at 0x7663b90>
 

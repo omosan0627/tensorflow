@@ -75,5 +75,7 @@ subplot.plot(range(len(train_accuracy)), train_accuracy,
 subplot.plot(range(len(test_accuracy)), test_accuracy,
              linewidth=2, label='Test set')
 subplot.legend(loc='upper left')
+
+plt.show()
 # Out[7]:
 # <matplotlib.legend.Legend at 0x367b110>

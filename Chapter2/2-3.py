@@ -160,3 +160,4 @@ for c, (image, label) in enumerate(zip(images, labels)):
     subplot.imshow(image.reshape((28,28)), vmin=0, vmax=1,
                    cmap=plt.cm.gray_r, interpolation="nearest")
 
+plt.show()
