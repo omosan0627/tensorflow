@@ -4,7 +4,7 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
-import cPickle as pickle
+import pickle
 
 np.random.seed(20160703)
 tf.set_random_seed(20160703)
@@ -12,7 +12,7 @@ tf.set_random_seed(20160703)
 # In [2]:
 
 with open('ORENIST.data', 'rb') as file:
-    images, labels = pickle.load(file)
+    images, labels = pickle.load(file, encoding='bytes')
 # [ODE-03] 画像データにフィルターとプーリング層を適用する計算式を用意します。
 # In [3]:
 
@@ -159,3 +159,4 @@ for i in range(9):
     subplot.imshow(pool_vals[i,:,:,1], vmin=0, vmax=v_max,
                    cmap=plt.cm.gray_r, interpolation='nearest')
 
+plt.show()

@@ -4,12 +4,12 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
-import cPickle as pickle
+import pickle
 # [OFE-02] データファイル「ORENIST.data」から画像とラベルのデータを読み込みます。
 # In [2]:
 
 with open('ORENIST.data', 'rb') as file:
-    images, labels = pickle.load(file)
+    images, labels = pickle.load(file, encoding='bytes')
 # [OFE-03] 画像データのサンプルを表示します。
 # In [3]:
 
@@ -141,3 +141,4 @@ for i in range(9):
     subplot.imshow(pool_vals[i,:,:,1], vmin=0, vmax=v_max,
                    cmap=plt.cm.gray_r, interpolation='nearest')
 
+plt.show()

@@ -2,6 +2,7 @@
 # In [1]:
 import tensorflow as tf
 import numpy as np
+import os
 import matplotlib.pyplot as plt
 from tensorflow.examples.tutorials.mnist import input_data
 
@@ -19,7 +20,7 @@ mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 # [MDC-03] フィルターに対応する Variable を用意して、入力データにフィルターとプーリング層を適用する計算式を定義します。
 # In [3]:
-num_filters = 16
+num_filters = 4
 
 x = tf.placeholder(tf.float32, [None, 784])
 x_image = tf.reshape(x, [-1,28,28,1])
@@ -36,7 +37,7 @@ h_pool =tf.nn.max_pool(h_conv, ksize=[1,2,2,1],
 h_pool_flat = tf.reshape(h_pool, [-1, 14*14*num_filters])
 
 num_units1 = 14*14*num_filters
-num_units2 = 1024
+num_units2 = 4
 
 w2 = tf.Variable(tf.truncated_normal([num_units1, num_units2]))
 b2 = tf.Variable(tf.zeros([num_units2]))
@@ -73,7 +74,7 @@ for _ in range(4000):
             feed_dict={x:mnist.test.images, t:mnist.test.labels})
         print ('Step: %d, Loss: %f, Accuracy: %f'
                % (i, loss_val, acc_val))
-        saver.save(sess, 'mdc_session', global_step=i)
+        saver.save(sess, os.path.join(os.getcwd(), 'mdc_session'), global_step=i)
 
 # Step: 100, Loss: 2726.630615, Accuracy: 0.917900
 # Step: 200, Loss: 2016.798096, Accuracy: 0.943700

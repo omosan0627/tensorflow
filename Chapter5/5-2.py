@@ -26,7 +26,7 @@ h_pool1 =tf.nn.max_pool(h_conv1_cutoff, ksize=[1,2,2,1],
 # [HWR-03] 2段目の畳み込みフィルターとプーリング層を定義します。
 # In [3]:
 
-num_filters2 = 64
+num_filters2 = 10
 
 W_conv2 = tf.Variable(
             tf.truncated_normal([5,5,num_filters1,num_filters2],
@@ -45,7 +45,7 @@ h_pool2 =tf.nn.max_pool(h_conv2_cutoff, ksize=[1,2,2,1],
 h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*num_filters2])
 
 num_units1 = 7*7*num_filters2
-num_units2 = 1024
+num_units2 = 10
 
 w2 = tf.Variable(tf.truncated_normal([num_units1, num_units2]))
 b2 = tf.Variable(tf.constant(0.1, shape=[num_units2]))
@@ -61,9 +61,9 @@ p = tf.nn.softmax(tf.matmul(hidden2_drop, w0) + b0)
 # In [5]:
 
 sess = tf.InteractiveSession()
-sess.run(tf.initialize_all_variables())
-# saver = tf.train.Saver()
-# saver.restore(sess, 'cnn_session-20000')
+sess.run(tf.global_variables_initializer())
+saver = tf.train.Saver()
+saver.restore(sess, 'cnn_session-2000')
 # [HWR-06] 手書き文字を入力するためのJavaScriptのコードを用意します。
 # In [6]:
 

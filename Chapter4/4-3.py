@@ -3,6 +3,7 @@
 
 import tensorflow as tf
 import numpy as np
+import os
 import matplotlib.pyplot as plt
 from tensorflow.examples.tutorials.mnist import input_data
 # [MDR-02] MNISTのデータセットを用意します。
@@ -16,7 +17,7 @@ mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 # [MDR-03] フィルターに対応する Variable を用意して、入力データにフィルターとプーリング層を適用する計算式を定義します。
 # In [3]:
 
-num_filters = 16
+num_filters = 4
 
 x = tf.placeholder(tf.float32, [None, 784])
 x_image = tf.reshape(x, [-1,28,28,1])
@@ -32,7 +33,7 @@ h_pool =tf.nn.max_pool(h_conv, ksize=[1,2,2,1],
 h_pool_flat = tf.reshape(h_pool, [-1, 14*14*num_filters])
 
 num_units1 = 14*14*num_filters
-num_units2 = 1024
+num_units2 = 4
 
 w2 = tf.Variable(tf.truncated_normal([num_units1, num_units2]))
 b2 = tf.Variable(tf.zeros([num_units2]))
@@ -54,8 +55,8 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 sess = tf.InteractiveSession()
 sess.run(tf.initialize_all_variables())
-# saver = tf.train.Saver()
-# saver.restore(sess, 'mdc_session-4000')
+saver = tf.train.Saver()
+saver.restore(sess, 'mdc_session-4000')
 # [MDR-07] 畳込みフィルターの値と、最初の9個分の画像データに対して、畳み込みフィルターとプーリング層を適用した結果を取得します。
 # In [7]:
 
@@ -90,7 +91,6 @@ for i in range(9):
         subplot.imshow(conv_vals[i,:,:,f],
                        cmap=plt.cm.gray_r, interpolation='nearest')    
 
-plt.show()
 # [MDR-09] 同じく、畳込みフィルターとプーリング層を適用した結果を画像として表示します。
 # In [9]:
 
@@ -119,7 +119,6 @@ for i in range(9):
         subplot.imshow(pool_vals[i,:,:,f],
                        cmap=plt.cm.gray_r, interpolation='nearest') 
 
-plt.show()
 # [MDR-10] 正しく分類できなかったいくつかのデータについて、それぞれの文字である確率を確認します。
 # In [10]:
 

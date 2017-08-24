@@ -1,0 +1,5 @@
+model_checkpoint_path: "c:\\python\\tensorflow\\Chapter5\\cnn_session-2000"
+all_model_checkpoint_paths: "c:\\python\\tensorflow\\Chapter5\\cnn_session-500"
+all_model_checkpoint_paths: "c:\\python\\tensorflow\\Chapter5\\cnn_session-1000"
+all_model_checkpoint_paths: "c:\\python\\tensorflow\\Chapter5\\cnn_session-1500"
+all_model_checkpoint_paths: "c:\\python\\tensorflow\\Chapter5\\cnn_session-2000"

@@ -4,7 +4,8 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
-import cPickle as pickle
+import pickle as pickle
+import base64
 
 np.random.seed(20160703)
 tf.set_random_seed(20160703)
@@ -12,7 +13,7 @@ tf.set_random_seed(20160703)
 # In [2]:
 
 with open('ORENIST.data', 'rb') as file:
-    images, labels = pickle.load(file)
+    images, labels = pickle.load(file, encoding='bytes')
 # [OCE-03] フィルターの情報を格納した多次元リストを作る関数を用意します。
 # In [3]:
 
@@ -29,7 +30,7 @@ def edge_filter():
              [ 0, 0, 0, 0, 0],
              [-1,-2,-3,-2,-1],
              [-2,-3,-4,-3,-2]]) / 23.0
-    
+   
     filter_array = np.zeros([5,5,1,2])
     filter_array[:,:,0,0] = filter0
     filter_array[:,:,0,1] = filter1
@@ -121,7 +122,7 @@ for hidden2_val, label in zip(hidden2_vals, labels):
     label_num = np.argmax(label)
     z1_vals[label_num].append(hidden2_val[0])
     z2_vals[label_num].append(hidden2_val[1])
-    
+   
 fig = plt.figure(figsize=(5,5))
 subplot = fig.add_subplot(1,1,1)
 subplot.scatter(z1_vals[0], z2_vals[0], s=200, marker='|')

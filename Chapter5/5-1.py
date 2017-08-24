@@ -9,11 +9,11 @@ tf.set_random_seed(20160704)
 
 # [CDS-02] CIFAR-10 のデータセットをダウンロードします。ダウンロード完了まで少し時間がかかります。
 # In [2]:
-%%bash
-mkdir -p /tmp/cifar10_data
-cd /tmp/cifar10_data
-curl -OL http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz
-tar xzf cifar-10-binary.tar.gz
+# %%bash
+# mkdir -p mnt/c/tmp/cifar10_data
+# cd mnt/c/tmp/cifar10_data
+# curl -OL http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz
+# tar xzf cifar-10-binary.tar.gz
 
 #   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 #                                  Dload  Upload   Total   Spent    Left  Speed
@@ -21,7 +21,7 @@ tar xzf cifar-10-binary.tar.gz
 
 # [CDS-03] ダウンロードしたデータを確認します。ここでは、テストセット用のデータ test_batch.bin を使用します。
 # In [3]:
-!ls -lR /tmp/cifar10_data
+# !ls -lR /tmp/cifar10_data
 
 # /tmp/cifar10_data:
 # total 166072
@@ -105,7 +105,7 @@ def distorted_samples(image):
 
     resized_image = tf.image.resize_image_with_crop_or_pad(reshaped_image,
                                                            width, height)
-    float_image = tf.image.per_image_whitening(resized_image)
+    float_image = tf.image.per_image_standardization(resized_image)
     float_images.append(float_image)
 
     for _ in range(6):
@@ -115,10 +115,10 @@ def distorted_samples(image):
                                                      max_delta=63)
         distorted_image = tf.image.random_contrast(distorted_image,
                                                    lower=0.2, upper=1.8)
-        float_image = tf.image.per_image_whitening(distorted_image)
+        float_image = tf.image.per_image_standardization(distorted_image)
         float_images.append(float_image)
 
-    return tf.concat(0,float_images)
+    return tf.concat(float_images,0)
 
 # [CDS-06] それぞれのラベルについて、オリジナル、および、前処理を施した画像イメージを表示します。
 # In [7]:
@@ -160,6 +160,5 @@ for l in range(10):
         image = dists[pos:pos+24]*40+120
         subplot.imshow(image.astype(np.uint8))
         
+plt.show()
 sess.close()
-
- 

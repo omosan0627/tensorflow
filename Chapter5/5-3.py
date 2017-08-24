@@ -3,6 +3,7 @@
 
 import tensorflow as tf
 import numpy as np
+import os
 import matplotlib.pyplot as plt
 from tensorflow.examples.tutorials.mnist import input_data
 
@@ -37,7 +38,7 @@ h_pool1 = tf.nn.max_pool(h_conv1_cutoff, ksize=[1,2,2,1],
 # [CNN-04] 2段目の畳み込みフィルターとプーリング層を定義します。
 # In [4]:
 
-num_filters2 = 64
+num_filters2 = 10
 
 W_conv2 = tf.Variable(
             tf.truncated_normal([5,5,num_filters1,num_filters2],
@@ -56,7 +57,7 @@ h_pool2 = tf.nn.max_pool(h_conv2_cutoff, ksize=[1,2,2,1],
 h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*num_filters2])
 
 num_units1 = 7*7*num_filters2
-num_units2 = 1024
+num_units2 = 10
 
 w2 = tf.Variable(tf.truncated_normal([num_units1, num_units2]))
 b2 = tf.Variable(tf.constant(0.1, shape=[num_units2]))
@@ -80,14 +81,14 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 # In [7]:
 
 sess = tf.InteractiveSession()
-sess.run(tf.initialize_all_variables())
+sess.run(tf.global_variables_initializer())
 saver = tf.train.Saver()
 # [CNN-08] パラメーターの最適化を20000回繰り返します。
 # 最終的に、テストセットに対して約99%の正解率が得られます。
 # In [8]:
 
 i = 0
-for _ in range(20000):
+for _ in range(2000):
     i += 1
     batch_xs, batch_ts = mnist.train.next_batch(50)
     sess.run(train_step,
@@ -107,7 +108,7 @@ for _ in range(20000):
         acc_val = np.mean(acc_vals)
         print ('Step: %d, Loss: %f, Accuracy: %f'
                % (i, loss_val, acc_val))
-        #saver.save(sess, 'cnn_session', global_step=i)
+        saver.save(sess, os.path.join(os.getcwd(), 'cnn_session'), global_step=i)
 # Step: 500, Loss: 1539.889160, Accuracy: 0.955600
 # Step: 1000, Loss: 972.987549, Accuracy: 0.971700
 # Step: 1500, Loss: 789.961914, Accuracy: 0.974000

@@ -6,7 +6,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 # [MDS-02] MNISTのデータセットをダウンロードして、オブジェクトに格納します。
 # In [2]:
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+mnist = input_data.read_data_sets("/tmp/data", one_hot=True)
 
 # Successfully downloaded train-images-idx3-ubyte.gz 9912422 bytes.
 # Extracting /tmp/data/train-images-idx3-ubyte.gz
