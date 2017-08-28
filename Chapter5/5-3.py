@@ -38,7 +38,7 @@ h_pool1 = tf.nn.max_pool(h_conv1_cutoff, ksize=[1,2,2,1],
 # [CNN-04] 2段目の畳み込みフィルターとプーリング層を定義します。
 # In [4]:
 
-num_filters2 = 10
+num_filters2 = 64
 
 W_conv2 = tf.Variable(
             tf.truncated_normal([5,5,num_filters1,num_filters2],
@@ -57,7 +57,7 @@ h_pool2 = tf.nn.max_pool(h_conv2_cutoff, ksize=[1,2,2,1],
 h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*num_filters2])
 
 num_units1 = 7*7*num_filters2
-num_units2 = 10
+num_units2 = 1024
 
 w2 = tf.Variable(tf.truncated_normal([num_units1, num_units2]))
 b2 = tf.Variable(tf.constant(0.1, shape=[num_units2]))
